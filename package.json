@@ -1,7 +1,7 @@
 {
-    "name": "radarcord-js",
+    "name": "@yoshiboi18303/radarcord-js",
     "version": "1.0.0",
-    "description": "A package for interacting with the Radarcord API",
+    "description": "The best way to interact with the Radarcord API!",
     "main": "dist/index.js",
     "scripts": {
         "build": "tsc",

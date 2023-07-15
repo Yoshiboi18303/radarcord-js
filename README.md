@@ -14,19 +14,19 @@ The best way to interact with the Radarcord API!
 ### npm
 
 ```bash
-npm install radarcord-js
+npm install @yoshiboi18303/radarcord-js
 ```
 
 ### yarn
 
 ```bash
-yarn add radarcord-js
+yarn add @yoshiboi18303/radarcord-js
 ```
 
 ### pnpm
 
 ```bash
-pnpm add radarcord-js
+pnpm add @yoshiboi18303/radarcord-js
 ```
 
 ## Documentation
