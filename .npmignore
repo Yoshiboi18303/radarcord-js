@@ -1,0 +1,8 @@
+.vscode/
+src/
+.editorconfig
+.eslintignore
+.eslintrc.js
+.gitignore
+tsconfig.json
+*.tgz

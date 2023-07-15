@@ -1,0 +1,40 @@
+{
+    "name": "radarcord-js",
+    "version": "1.0.0",
+    "description": "A package for interacting with the Radarcord API",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "prelink": "npm run build",
+        "link": "npm link",
+        "prepack": "tsc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Yoshiboi18303/radarbots-js.git"
+    },
+    "keywords": [
+        "radar",
+        "radarcord",
+        "discord"
+    ],
+    "author": "Yoshiboi18303",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Yoshiboi18303/radarbots-js/issues"
+    },
+    "homepage": "https://yoshiboi18303.gitbook.io/radarcord-js/",
+    "dependencies": {
+        "discord.js": "^14.11.0",
+        "superagent": "^8.0.9",
+        "tslib": "^2.6.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.4.2",
+        "@types/superagent": "^4.1.18",
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "eslint": "^8.44.0",
+        "typescript": "^5.1.6"
+    }
+}
