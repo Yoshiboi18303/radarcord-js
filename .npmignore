@@ -1,8 +1,10 @@
 .vscode/
 src/
+scripts/
 .editorconfig
 .eslintignore
 .eslintrc.js
 .gitignore
+.prettierignore
 tsconfig.json
 *.tgz

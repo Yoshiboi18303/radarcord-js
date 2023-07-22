@@ -5,7 +5,7 @@ The best way to interact with the Radarcord API!
 ## Features
 
 - Easy to use
-- Supports `discord.js` and will support `eris` soon
+- Supports `discord.js` and `eris`
 - Supports TypeScript
 - May come with Webhook support soon
 

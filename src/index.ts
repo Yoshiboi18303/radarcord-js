@@ -21,4 +21,9 @@
 // SOFTWARE.
 
 import Client from "./Client";
-export default Client;
+import ErisClient from "./ErisClient";
+
+export default {
+    Client,
+    ErisClient,
+};

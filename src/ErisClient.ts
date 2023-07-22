@@ -1,33 +1,33 @@
-import Discord from "discord.js";
+import Eris from "eris";
 import axios from "axios";
 import { RadarcordError } from "./errors/RadarcordError";
 import {
-    IntervalPreset,
     Review,
     StatsPostBody,
     StatsPostCallback,
     StatsPostResult,
-    getTimeout,
     isOk,
     throwBadStatusCodeError,
+    IntervalPreset,
+    getTimeout,
 } from "./utils";
 import { apiRoot } from "./globals";
 
-export default class RadarcordClient {
-    public dJSClient: Discord.Client;
+export default class RadarcordErisClient {
+    public erisClient: Eris.Client;
     public authorization: string;
 
-    constructor(dJSClient: Discord.Client, authToken: string) {
-        if (!(dJSClient instanceof Discord.Client))
+    constructor(erisClient: Eris.Client, authorization: string) {
+        if (!(erisClient instanceof Eris.Client))
             throw new TypeError(
-                "Your client argument must be a type of Discord.js Client!"
+                `Expected an "Eris.Client" or an extending type, got ${typeof erisClient} instead.`
             );
-        this.dJSClient = dJSClient;
-        this.authorization = authToken;
+        this.erisClient = erisClient;
+        this.authorization = authorization;
     }
 
-    private _ensureThereIsClientUser(): boolean {
-        return this.dJSClient.readyAt !== null;
+    private _ensureClientIsReady(): boolean {
+        return this.erisClient.ready === true;
     }
 
     /**
@@ -38,14 +38,15 @@ export default class RadarcordClient {
      * @returns A Promise that resolves to a `StatsPostResult`.
      */
     public async postStats(shardCount: number = 1): Promise<StatsPostResult> {
-        if (!this._ensureThereIsClientUser())
+        if (!this._ensureClientIsReady() || !this.erisClient.application)
             throw new RadarcordError(
-                "The client is not logged in! Please try this again in your ready event!"
+                "The client is not ready, please try this again in your ready event!"
             );
-        const guildCount = this.dJSClient.guilds.cache.size;
+
+        const guildCount = this.erisClient.guilds.size;
         const res = await axios
             .post(
-                `${apiRoot}/bot/${this.dJSClient.user!.id}/stats`,
+                `${apiRoot}/bot/${this.erisClient.application.id}/stats`,
                 {
                     guilds: guildCount,
                     shards: shardCount,
@@ -100,7 +101,6 @@ export default class RadarcordClient {
         shardCount: number = 1
     ) {
         const result = await this.postStats(shardCount);
-
         if (typeof callback === "function") await callback(result);
     }
 
@@ -131,12 +131,13 @@ export default class RadarcordClient {
      * @returns A Promise which resolves to an array of reviews.
      */
     public async getReviews(): Promise<Review[]> {
-        if (!this._ensureThereIsClientUser())
+        if (!this._ensureClientIsReady() || !this.erisClient.application)
             throw new RadarcordError(
-                "The client is not logged in! Please try this again in your ready event!"
+                "The client is not ready, please try this again in your ready event!"
             );
+
         const res = await axios
-            .get(`${apiRoot}/bot/${this.dJSClient.user!.id}/reviews`)
+            .get(`${apiRoot}/bot/${this.erisClient.application.id}/reviews`)
             .catch((err) => {
                 throw new RadarcordError(`Request failed: ${err}`);
             });
@@ -149,8 +150,8 @@ export default class RadarcordClient {
             reviews.push({
                 content: String(review.content),
                 stars: parseInt(review.stars),
-                botId: String(review.botid),
                 userId: String(review.userid),
+                botId: String(review.botid),
             });
         }
 
