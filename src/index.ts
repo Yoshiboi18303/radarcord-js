@@ -23,7 +23,11 @@
 import Client from "./Client";
 import ErisClient from "./ErisClient";
 
-export default {
+const clients = {
     Client,
     ErisClient,
 };
+
+export { Client, ErisClient };
+
+export default clients;
